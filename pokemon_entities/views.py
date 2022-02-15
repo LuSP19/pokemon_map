@@ -37,7 +37,9 @@ def show_all_pokemons(request):
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
-            request.build_absolute_uri(f'/media/{pokemon_entity.pokemon.image}')
+            request.build_absolute_uri(
+                f'/media/{pokemon_entity.pokemon.image}'
+            )
         )
 
     pokemons = Pokemon.objects.all()
@@ -63,7 +65,9 @@ def show_pokemon(request, pokemon_id):
             previous_evolution = {
                 'title_ru': requested_pokemon.ancestor.title,
                 'pokemon_id': requested_pokemon.ancestor.id,
-                'img_url': request.build_absolute_uri(f'/media/{requested_pokemon.ancestor.image}')
+                'img_url': request.build_absolute_uri(
+                    f'/media/{requested_pokemon.ancestor.image}'
+                )
             }
         pokemon = {
             'pokemon_id': requested_pokemon.id,
@@ -71,7 +75,9 @@ def show_pokemon(request, pokemon_id):
             'title_en': requested_pokemon.title_en,
             'title_jp': requested_pokemon.title_jp,
             'description': requested_pokemon.description,
-            'img_url': request.build_absolute_uri(f'/media/{requested_pokemon.image}'),
+            'img_url': request.build_absolute_uri(
+                f'/media/{requested_pokemon.image}'
+            ),
             'entities': [],
             'next_evolution': {},
             'previous_evolution': previous_evolution
