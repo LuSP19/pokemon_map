@@ -58,6 +58,13 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     try:
         requested_pokemon = Pokemon.objects.get(id=pokemon_id)
+        previous_evolution = dict()
+        if requested_pokemon.ancestor:
+            previous_evolution = {
+                'title_ru': requested_pokemon.ancestor.title,
+                'pokemon_id': requested_pokemon.ancestor.id,
+                'img_url': request.build_absolute_uri(f'/media/{requested_pokemon.ancestor.image}')
+            }
         pokemon = {
             'pokemon_id': requested_pokemon.id,
             'title_ru': requested_pokemon.title,
@@ -66,7 +73,8 @@ def show_pokemon(request, pokemon_id):
             'description': requested_pokemon.description,
             'img_url': request.build_absolute_uri(f'/media/{requested_pokemon.image}'),
             'entities': [],
-            'next_evolution': {}
+            'next_evolution': {},
+            'previous_evolution': previous_evolution
         }
     except Pokemon.DoesNotExist:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')

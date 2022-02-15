@@ -5,6 +5,7 @@ class Pokemon(models.Model):
     title = models.CharField(max_length=50)
     title_en = models.CharField(max_length=50, blank=True)
     title_jp = models.CharField(max_length=50, blank=True)
+    ancestor = models.ForeignKey('Pokemon', null=True, blank=True, on_delete=models.SET_NULL)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='images', null=True, blank=True)
 
