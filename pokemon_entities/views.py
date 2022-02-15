@@ -63,7 +63,7 @@ def show_pokemon(request, pokemon_id):
             'title_ru': requested_pokemon.title,
             'title_en': '',
             'title_jp': '',
-            'description': '',
+            'description': requested_pokemon.description,
             'img_url': request.build_absolute_uri(f'/media/{requested_pokemon.image}'),
             'entities': [],
             'next_evolution': {}
