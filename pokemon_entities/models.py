@@ -52,3 +52,6 @@ class PokemonEntity(models.Model):
         null=True,
         blank=True
     )
+
+    def __str__(self):
+        return f'{self.pokemon.title} ({self.lat}, {self.lon})'
