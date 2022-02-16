@@ -22,12 +22,7 @@ class Pokemon(models.Model):
         on_delete=models.SET_NULL
     )
     description = models.TextField(verbose_name='Описание', blank=True)
-    image = models.ImageField(
-        verbose_name='Изображение',
-        upload_to='images',
-        null=True,
-        blank=True
-    )
+    image = models.ImageField(verbose_name='Изображение', upload_to='images')
 
     def __str__(self):
         return f'{self.title}'
@@ -45,7 +40,15 @@ class PokemonEntity(models.Model):
     appeared_at = models.DateTimeField(verbose_name='Появляется')
     disappeared_at = models.DateTimeField(verbose_name='Исчезает')
     level = models.IntegerField(verbose_name='Уровень', null=True, blank=True)
-    health = models.IntegerField(verbose_name='Здоровье', null=True, blank=True)
+    health = models.IntegerField(
+        verbose_name='Здоровье',
+        null=True,
+        blank=True
+    )
     strength = models.IntegerField(verbose_name='Сила', null=True, blank=True)
     defence = models.IntegerField(verbose_name='Защита', null=True, blank=True)
-    stamina = models.IntegerField(verbose_name='Выносливость', null=True, blank=True)
+    stamina = models.IntegerField(
+        verbose_name='Выносливость',
+        null=True,
+        blank=True
+    )
