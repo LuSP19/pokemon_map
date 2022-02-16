@@ -61,22 +61,22 @@ def show_pokemon(request, pokemon_id):
     try:
         requested_pokemon = Pokemon.objects.get(id=pokemon_id)
         previous_evolution = dict()
-        if requested_pokemon.ancestor:
+        if requested_pokemon.evolved_from:
             previous_evolution = {
-                'title_ru': requested_pokemon.ancestor.title,
-                'pokemon_id': requested_pokemon.ancestor.id,
+                'title_ru': requested_pokemon.evolved_from.title,
+                'pokemon_id': requested_pokemon.evolved_from.id,
                 'img_url': request.build_absolute_uri(
-                    f'/media/{requested_pokemon.ancestor.image}'
+                    f'/media/{requested_pokemon.evolved_from.image}'
                 )
             }
         next_evolution = dict()
         try:
-            descendant = requested_pokemon.next_evolutions.get()
+            evolves_into = requested_pokemon.next_evolutions.get()
             next_evolution = {
-                'title_ru': descendant.title,
-                'pokemon_id': descendant.id,
+                'title_ru': evolves_into.title,
+                'pokemon_id': evolves_into.id,
                 'img_url': request.build_absolute_uri(
-                    f'/media/{descendant.image}'
+                    f'/media/{evolves_into.image}'
                 )
             }
         except Pokemon.DoesNotExist:

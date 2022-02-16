@@ -13,7 +13,7 @@ class Pokemon(models.Model):
         verbose_name='Название (яп.)',
         blank=True
     )
-    ancestor = models.ForeignKey(
+    evolved_from = models.ForeignKey(
         'self',
         verbose_name='Эволюционировал из',
         related_name='next_evolutions',
