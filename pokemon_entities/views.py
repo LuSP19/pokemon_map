@@ -37,9 +37,7 @@ def show_all_pokemons(request):
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
-            request.build_absolute_uri(
-                f'/media/{pokemon_entity.pokemon.image}'
-            )
+            request.build_absolute_uri(pokemon_entity.pokemon.image.url)
         )
 
     pokemons = Pokemon.objects.all()
@@ -47,7 +45,7 @@ def show_all_pokemons(request):
     for pokemon in pokemons:
         pokemons_on_page.append({
             'pokemon_id': pokemon.id,
-            'img_url': request.build_absolute_uri(f'/media/{pokemon.image}'),
+            'img_url': request.build_absolute_uri(pokemon.image.url),
             'title_ru': pokemon.title,
         })
 
@@ -66,7 +64,7 @@ def show_pokemon(request, pokemon_id):
                 'title_ru': requested_pokemon.evolved_from.title,
                 'pokemon_id': requested_pokemon.evolved_from.id,
                 'img_url': request.build_absolute_uri(
-                    f'/media/{requested_pokemon.evolved_from.image}'
+                    requested_pokemon.evolved_from.image.url
                 )
             }
         next_evolution = dict()
@@ -76,7 +74,7 @@ def show_pokemon(request, pokemon_id):
                 'title_ru': evolves_into.title,
                 'pokemon_id': evolves_into.id,
                 'img_url': request.build_absolute_uri(
-                    f'/media/{evolves_into.image}'
+                    evolves_into.image.url
                 )
             }
         except Pokemon.DoesNotExist:
@@ -88,7 +86,7 @@ def show_pokemon(request, pokemon_id):
             'title_jp': requested_pokemon.title_jp,
             'description': requested_pokemon.description,
             'img_url': request.build_absolute_uri(
-                f'/media/{requested_pokemon.image}'
+                requested_pokemon.image.url
             ),
             'entities': [],
             'next_evolution': next_evolution,
@@ -103,7 +101,7 @@ def show_pokemon(request, pokemon_id):
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
-            request.build_absolute_uri(f'/media/{requested_pokemon.image}')
+            request.build_absolute_uri(requested_pokemon.image.url)
         )
 
     return render(request, 'pokemon.html', context={
