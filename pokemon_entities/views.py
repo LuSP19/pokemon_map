@@ -78,7 +78,7 @@ def show_pokemon(request, pokemon_id):
                 'img_url': request.build_absolute_uri(
                     f'/media/{descendant.image}'
                 )
-            }            
+            }
         except Pokemon.DoesNotExist:
             pass
         pokemon = {
