@@ -69,6 +69,18 @@ def show_pokemon(request, pokemon_id):
                     f'/media/{requested_pokemon.ancestor.image}'
                 )
             }
+        next_evolution = dict()
+        try:
+            descendant = requested_pokemon.next_evolutions.get()
+            next_evolution = {
+                'title_ru': descendant.title,
+                'pokemon_id': descendant.id,
+                'img_url': request.build_absolute_uri(
+                    f'/media/{descendant.image}'
+                )
+            }            
+        except Pokemon.DoesNotExist:
+            pass
         pokemon = {
             'pokemon_id': requested_pokemon.id,
             'title_ru': requested_pokemon.title,
@@ -79,7 +91,7 @@ def show_pokemon(request, pokemon_id):
                 f'/media/{requested_pokemon.image}'
             ),
             'entities': [],
-            'next_evolution': {},
+            'next_evolution': next_evolution,
             'previous_evolution': previous_evolution
         }
     except Pokemon.DoesNotExist:
